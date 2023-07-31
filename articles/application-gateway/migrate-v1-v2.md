@@ -25,6 +25,14 @@ There are two stages in a migration:
 
 This article primarily helps with the configuration migration. The traffic migration would vary depending on customer’s needs and environment. But we have included some general recommendations further in this [article](#traffic-migration).
 
+> [!IMPORTANT]
+> 
+>**Known Issue:** Running the migration script multiple times in the same powershell session/window can delete all resources in the resource group.
+>
+>**Mitigation:** To avoid this issue, please run the migration script in a new PowerShell window or session each time. You can ensure that a new session is created before >running the migration script again by running "Exit-PSSession" each time after the script has finished.
+>
+>**Resolution:** We apologize for the inconvenience and understand that this is not the ideal experience. We are working on fixing this issue and we expect to have a >solution by August 10, 2023. After this date, customers will be able to run the migration script in the same session.
+
 ## Prerequisites
 
 * An Azure account with an active subscription. [Create an account for free](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
@@ -173,7 +181,6 @@ To run the script:
       -publicIpResourceId "/subscriptions/8b1d0fea-8d57-4975-adfb-308f1f4d12aa/resourceGroups/MyResourceGroup/providers/Microsoft.Network/publicIPAddresses/MyPublicIP" `
       -validateMigration -enableAutoScale
    ```
-
 ### Caveats\Limitations
 
 * The new V2 gateway has new public and private IP addresses. It isn't possible to move the IP addresses associated with the existing V1 gateway seamlessly to V2. However, you can allocate an existing (unallocated) public or private IP address to the new V2 gateway.
